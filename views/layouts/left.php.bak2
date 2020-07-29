@@ -1,0 +1,161 @@
+<?php
+use yii\helpers\Html; 
+use yii\helpers\Url;
+use app\components\Polisitoba;
+?>
+
+<aside class="main-sidebar">
+
+    <section class="sidebar">
+
+        <div class="user-panel dropdown" id="logo-bg" style="margin-top: -50px;min-height: 100px; width: 100% !important; background-color:#367fa9;" onclick="showSettingDropdown()" >
+        <?= Html::a('<img src="'. Url::base() . '/img/logo_rev.png" width=175 style="margin:32px 0px 12px 0px;" class="image logo-lg shadowed" alt="asd"/>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+            <!-- <span class="fa fa-power-off pull-right" id="logout-btn" style="margin-right: 10px; margin-top: 75px; color: whitesmoke;"></span> -->
+            <div class="info dropbtn" style="left: 0; margin-top:10px; padding: 2px 2px !important; width: 100%;">
+                <p  style="pointer-events: none; text-align: center;"><?php echo Yii::$app->user->identity->username; ?> <a href="#" style="/* color: whitesmoke; */ pointer-events: none">- <?php echo Yii::$app->user->identity->role; ?></a></p>
+            </div>
+            <!-- <div class="dropbtn" style="left: 0; width: 100%;">
+                <a href="#" class="fa fa-power-off dropbtn" id="logout-min-btn" style="/* color: whitesmoke; */ margin-left: 8px;display: none; z-index: 10;pointer-events: none" onclick="showSettingDropdown()"></a>
+            </div> -->
+            <div id="live-clock" style="font-size: 12pt; color: whitesmoke; margin-top: 20px; padding: 15px 5px 0px; text-align: center;">
+                Loading...
+            </div>
+        </div>
+
+        <!-- search form -->
+        <!--<form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search..."/>
+              <span class="input-group-btn">
+                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+        </form>-->
+        <!-- /.search form -->
+
+        <?=
+        dmstr\widgets\Menu::widget(
+                [
+                    'options' => ['class' => 'sidebar-menu'],
+                    'items' => [
+                        [
+                            'label' => 'Master Data',
+                            'icon' => 'fa fa-database',
+                            'url' => '#',
+                            'visible'=> 
+                                Polisitoba::boi('product/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('product-item/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('account/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('organization/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('schema/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('user/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('sellprice/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('sprice-item/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('salesreward/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('mregcommission/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('regrpoint/index',Yii::$app->user->identity->role),
+                            'items' => [
+                                ['label' => 'Produk', 'icon' => 'fa fa-database', 'url' => ['/product'],'visible'=>(Polisitoba::boi('product/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Item', 'icon' => 'fa fa-database', 'url' => ['/product-item'],'visible'=>(Polisitoba::boi('product-item/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Akun', 'icon' => 'fa fa-database', 'url' => ['/account'],'visible'=>(Polisitoba::boi('account/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Organisasi', 'icon' => 'fa fa-database', 'url' => ['/organization'],'visible'=>(Polisitoba::boi('organization/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Skema', 'icon' => 'fa fa-database', 'url' => ['/schema'],'visible'=>(Polisitoba::boi('schema/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Pengguna', 'icon' => 'fa fa-database', 'url' => ['/user'],'visible'=>(Polisitoba::boi('user/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Grup Harga', 'icon' => 'fa fa-database', 'url' => ['/sellprice'],'visible'=>(Polisitoba::boi('sellprice/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Harga', 'icon' => 'fa fa-database', 'url' => ['/sprice-item'],'visible'=>(Polisitoba::boi('sprice-item/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Komisi Transaksi', 'icon' => 'fa fa-database', 'url' => ['/salescommission'],'visible'=>(Polisitoba::boi('salescommission/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Poin Transaksi', 'icon' => 'fa fa-database', 'url' => ['/salesreward'],'visible'=>(Polisitoba::boi('salesreward/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Komisi Registrasi', 'icon' => 'fa fa-database', 'url' => ['/mregcommission'],'visible'=>(Polisitoba::boi('mregcommission/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Poin Registrasi', 'icon' => 'fa fa-database', 'url' => ['/regrpoint'],'visible'=>(Polisitoba::boi('regrpoint/index',Yii::$app->user->identity->role))],
+                            ],
+                        ],
+                        [
+                            'label' => 'Transaksi',
+                            'icon' => 'fa fa-flash',
+                            'url' => '#',
+                            'visible'=> 
+                                Polisitoba::boi('vaccmutation/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('accmutationtmp/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('vrewmutation/index',Yii::$app->user->identity->role),
+                            'items' => [
+                                ['label' => 'Manajemen Akun', 'icon' => 'fa fa-flash', 'url' => ['/vaccmutation'],'visible'=>(Polisitoba::boi('vaccmutation/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Persetujuan Akun', 'icon' => 'fa fa-flash', 'url' => ['/accmutationtmp'],'visible'=>(Polisitoba::boi('accmutationtmp/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Manajemen Poin', 'icon' => 'fa fa-flash', 'url' => ['/vrewmutation'],'visible'=>(Polisitoba::boi('vrewmutation/index',Yii::$app->user->identity->role))],
+                            ],
+                        ],
+                        [
+                            'label' => 'Laporan Transaksi',
+                            'icon' => 'fa fa-area-chart',
+                            'url' => '#',
+                            'visible'=> 
+                                Polisitoba::boi('trxbalance/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('trxaccmutation/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('trxdetail/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('trxrecap/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('trxhistory/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('trewmutation/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('trewmutation/rekap',Yii::$app->user->identity->role),
+                            'items' => [
+                                ['label' => 'Saldo', 'icon' => 'fa fa-area-chart', 'url' => ['/trxbalance'],'visible'=>(Polisitoba::boi('trxbalance/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Mutasi Akun', 'icon' => 'fa fa-area-chart', 'url' => ['/trxaccmutation'],'visible'=>(Polisitoba::boi('trxaccmutation/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Detail Transaksi', 'icon' => 'fa fa-area-chart', 'url' => ['/trxdetail'],'visible'=>(Polisitoba::boi('trxdetail/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Rekap Transaksi', 'icon' => 'fa fa-area-chart', 'url' => ['/trxrecap'],'visible'=>(Polisitoba::boi('trxrecap/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Histori Transaksi', 'icon' => 'fa fa-area-chart', 'url' => ['/trxhistory'],'visible'=>(Polisitoba::boi('trxhistory/index',Yii::$app->user->identity->role))],
+                                 ['label' => 'Detail Poin', 'icon' => 'fa fa-area-chart', 'url' => ['/trewmutation/index'],'visible'=>(Polisitoba::boi('trewmutation/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Rekap Poin', 'icon' => 'fa fa-area-chart', 'url' => ['/trewmutation/rekap'],'visible'=>(Polisitoba::boi('trewmutation/rekap',Yii::$app->user->identity->role))],
+                               
+                            ],
+                        ],
+                        [
+                            'label' => 'Laporan Jaringan',
+                            'icon' => 'fa fa-area-chart',
+                            'url' => '#',
+                            'visible'=> 
+                                Polisitoba::boi('networkregis/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('networkorg/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('networktrxdetail/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('networktrx/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('networkrecap/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('networkbalance/index',Yii::$app->user->identity->role),
+                            'items' => [
+                                ['label' => 'Registrasi Jaringan', 'icon' => 'fa fa-area-chart', 'url' => ['/networkregis'],'visible'=>(Polisitoba::boi('networkregis/index',Yii::$app->user->identity->role))],
+                                ['label' => 'View Jaringan', 'icon' => 'fa fa-area-chart', 'url' => ['/networkorg'],'visible'=>(Polisitoba::boi('networkorg/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Detail Transaksi', 'icon' => 'fa fa-area-chart', 'url' => ['/networktrxdetail'],'visible'=>(Polisitoba::boi('networktrxdetail/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Rekap Transaksi', 'icon' => 'fa fa-area-chart', 'url' => ['/networktrx'],'visible'=>(Polisitoba::boi('networktrx/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Rekap Jaringan', 'icon' => 'fa fa-area-chart', 'url' => ['/networkrecap'],'visible'=>(Polisitoba::boi('networkrecap/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Saldo Jaringan', 'icon' => 'fa fa-area-chart', 'url' => ['/networkbalance'],'visible'=>(Polisitoba::boi('networkbalance/index',Yii::$app->user->identity->role))],
+                            ],
+                        ],
+                        [
+                          'label' => 'Sesi Pengguna',
+                            'icon' => 'fa fa-group',
+                            'url' => '$',
+                            'visible'=> 
+                                Polisitoba::boi('usersession/index',Yii::$app->user->identity->role) ||
+                                Polisitoba::boi('site/logout',Yii::$app->user->identity->role),
+                            'items' => [
+                                ['label' => 'Daftar User Aktif', 'icon' => 'fa fa-group', 'url' => ['/usersession'],'visible'=>(Polisitoba::boi('usersession/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Keluar', 'icon' => 'glyphicon glyphicon-log-out', 'url' => ['site/logout'],'visible'=>(Polisitoba::boi('site/logout',Yii::$app->user->identity->role))],
+                            ],  
+                        ],
+                        [
+                          'label' => 'Manajemen Hak Akses',
+                            'icon' => 'fa fa-group',
+                            'url' => '$',
+                            'visible'=> 
+                               Polisitoba::boi('mmenucfg/index',Yii::$app->user->identity->role) ||
+                               Polisitoba::boi('role/logout',Yii::$app->user->identity->role),
+                            'items' => [
+                                ['label' => 'Generate Akses', 'icon' => 'fa fa-group', 'url' => ['/mmenucfg'],'visible'=>(Polisitoba::boi('mmenucfg/index',Yii::$app->user->identity->role))],
+                                ['label' => 'Hak Akses', 'icon' => 'fa fa-group', 'url' => ['/role'],'visible'=>(Polisitoba::boi('role/index',Yii::$app->user->identity->role))],
+                            ],  
+                        ],
+                    ],
+                ]
+        )
+        ?>
+
+    </section>
+
+</aside>

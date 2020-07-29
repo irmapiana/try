@@ -1,0 +1,148 @@
+<?php
+use yii\helpers\Html; 
+use yii\helpers\Url;
+?>
+
+<aside class="main-sidebar">
+
+    <section class="sidebar">
+
+        <div class="user-panel dropdown" id="logo-bg" style="margin-top: -50px;min-height: 100px; width: 100% !important; background-color:#367fa9;" onclick="showSettingDropdown()" >
+        <?= Html::a('<img src="'. Url::base() . '/img/logo_rev.png" width=175 style="margin:32px 0px 12px 0px;" class="image logo-lg shadowed" alt="asd"/>', Yii::$app->homeUrl, ['class' => 'logo']) ?>
+            <!-- <span class="fa fa-power-off pull-right" id="logout-btn" style="margin-right: 10px; margin-top: 75px; color: whitesmoke;"></span> -->
+            <div class="info dropbtn" style="left: 0; margin-top:10px; padding: 2px 2px !important; width: 100%;">
+                <p  style="pointer-events: none; text-align: center;"><?php echo Yii::$app->user->identity->username; ?> <a href="#" style="/* color: whitesmoke; */ pointer-events: none">- <?php echo Yii::$app->user->identity->role; ?></a></p>
+            </div>
+            <!-- <div class="dropbtn" style="left: 0; width: 100%;">
+                <a href="#" class="fa fa-power-off dropbtn" id="logout-min-btn" style="/* color: whitesmoke; */ margin-left: 8px;display: none; z-index: 10;pointer-events: none" onclick="showSettingDropdown()"></a>
+            </div> -->
+            <div id="live-clock" style="font-size: 12pt; color: whitesmoke; margin-top: 20px; padding: 15px 5px 0px; text-align: center;">
+                Loading...
+            </div>
+        </div>
+
+        <!-- search form -->
+        <!--<form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search..."/>
+              <span class="input-group-btn">
+                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+        </form>-->
+        <!-- /.search form -->
+
+        <?=
+        dmstr\widgets\Menu::widget(
+                [
+                    'options' => ['class' => 'sidebar-menu'],
+                    'items' => [
+                        [
+                            'label' => 'Master Data',
+                            'icon' => 'fa fa-database',
+                            'url' => '#',
+                            'items' => [
+                                ['label' => 'Produk', 'icon' => 'fa fa-database', 'url' => ['/product'],],
+                                ['label' => 'Item', 'icon' => 'fa fa-database', 'url' => ['/product-item'],],
+                                ['label' => 'Akun', 'icon' => 'fa fa-database', 'url' => ['/account'],],
+                                ['label' => 'Organisasi', 'icon' => 'fa fa-database', 'url' => ['/organization'],],
+                                ['label' => 'Skema', 'icon' => 'fa fa-database', 'url' => ['/schema'],],
+                                ['label' => 'Pengguna', 'icon' => 'fa fa-database', 'url' => ['/user'],],
+                                ['label' => 'Grup Harga', 'icon' => 'fa fa-database', 'url' => ['/sellprice'],],
+                                ['label' => 'Harga', 'icon' => 'fa fa-database', 'url' => ['/sprice-item'],],
+                                ['label' => 'Komisi Transaksi', 'icon' => 'fa fa-database', 'url' => ['/salescommission'],],
+                                ['label' => 'Poin Transaksi', 'icon' => 'fa fa-database', 'url' => ['/salesreward'],],
+                                ['label' => 'Komisi Registrasi', 'icon' => 'fa fa-database', 'url' => ['/mregcommission'],],
+                                ['label' => 'Poin Registrasi', 'icon' => 'fa fa-database', 'url' => ['/regrpoint'],],
+                            ],
+                        ],
+                        [
+                            'label' => 'Transaksi',
+                            'icon' => 'fa fa-flash',
+                            'url' => '#',
+                            'items' => [
+                                ['label' => 'Manajemen Akun', 'icon' => 'fa fa-flash', 'url' => ['/vaccmutation'],],
+                                ['label' => 'Persetujuan Akun', 'icon' => 'fa fa-flash', 'url' => ['/accmutationtmp'],],
+                                ['label' => 'Manajemen Poin', 'icon' => 'fa fa-flash', 'url' => ['/vrewmutation'],],
+                                // ['label' => 'Transaksi Mitra', 'icon' => 'fa fa-flash', 'url' => ['/front'],],
+                                // ['label' => 'Transaksi Provider', 'icon' => 'fa fa-flash', 'url' => ['/back'],],
+                            // ['label' => 'Transfer Akun', 'icon' => 'fa fa-flash', 'url' => ['/accounttrf'],],
+                            // ['label' => 'Transfer Akun Approval', 'icon' => 'fa fa-flash', 'url' => ['/vaccounttrf'],],
+                            //['label' => 'Transaksi Mitra', 'icon' => 'fa fa-flash', 'url' => ['/mitratrx'],],
+                            //['label' => 'Transaksi Provider', 'icon' => 'fa fa-flash', 'url' => ['/providertrx'],],
+                            ],
+                        ],
+                        [
+                            'label' => 'Laporan Transaksi',
+                            'icon' => 'fa fa-area-chart',
+                            'url' => '#',
+                            'items' => [
+                                ['label' => 'Saldo', 'icon' => 'fa fa-area-chart', 'url' => ['/trxbalance'],],
+                                ['label' => 'Mutasi Akun', 'icon' => 'fa fa-area-chart', 'url' => ['/trxaccmutation'],],
+                                ['label' => 'Detail Transaksi', 'icon' => 'fa fa-area-chart', 'url' => ['/trxdetail'],],
+                                ['label' => 'Rekap Transaksi', 'icon' => 'fa fa-area-chart', 'url' => ['/trxrecap'],],
+                                ['label' => 'Histori Transaksi', 'icon' => 'fa fa-area-chart', 'url' => ['/trxhistory'],],
+                                 ['label' => 'Detail Poin', 'icon' => 'fa fa-area-chart', 'url' => ['/trewmutation/index'],],
+                                ['label' => 'Rekap Poin', 'icon' => 'fa fa-area-chart', 'url' => ['/trewmutation/rekap'],],
+                               
+                            ],
+                        ],
+                        [
+                            'label' => 'Laporan Jaringan',
+                            'icon' => 'fa fa-area-chart',
+                            'url' => '#',
+                            'items' => [
+                                ['label' => 'Registrasi Jaringan', 'icon' => 'fa fa-area-chart', 'url' => ['/networkregis'],],
+                                ['label' => 'View Jaringan', 'icon' => 'fa fa-area-chart', 'url' => ['/networkorg'],],
+                                ['label' => 'Detail Transaksi', 'icon' => 'fa fa-area-chart', 'url' => ['/networktrxdetail'],],
+                                ['label' => 'Rekap Transaksi', 'icon' => 'fa fa-area-chart', 'url' => ['/networktrx'],],
+                                ['label' => 'Rekap Jaringan', 'icon' => 'fa fa-area-chart', 'url' => ['/networkrecap'],],
+                                ['label' => 'Saldo Jaringan', 'icon' => 'fa fa-area-chart', 'url' => ['/networkbalance'],],
+                            ],
+                        ],
+                        [
+                          'label' => 'Sesi Pengguna',
+                            'icon' => 'fa fa-group',
+                            'url' => '$',
+                            'items' => [
+                                ['label' => 'Daftar User Aktif', 'icon' => 'fa fa-group', 'url' => ['/usersession'],],
+                                ['label' => 'Keluar', 'icon' => 'glyphicon glyphicon-log-out', 'url' => ['site/logout'],],
+                            ],  
+                        ],
+                    // ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
+                    // ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    // [
+                    //     'label' => 'Same tools',
+                    //     'icon' => 'fa fa-dashboard',
+                    //     'url' => '#',
+                    //     'items' => [
+                    //         ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii'],],
+                    //         ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug'],],
+                    //         [
+                    //             'label' => 'Level One',
+                    //             'icon' => 'fa fa-circle-o',
+                    //             'url' => '#',
+                    //             'items' => [
+                    //                 ['label' => 'Level Two', 'icon' => 'fa fa-circle-o', 'url' => '#',],
+                    //                 [
+                    //                     'label' => 'Level Two',
+                    //                     'icon' => 'fa fa-circle-o',
+                    //                     'url' => '#',
+                    //                     'items' => [
+                    //                         ['label' => 'Level Three', 'icon' => 'fa fa-circle-o', 'url' => '#',],
+                    //                         ['label' => 'Level Three', 'icon' => 'fa fa-circle-o', 'url' => '#',],
+                    //                     ],
+                    //                 ],
+                    //             ],
+                    //         ],
+                    //     ],
+                    // ],
+                    ],
+                ]
+        )
+        ?>
+
+    </section>
+
+</aside>
